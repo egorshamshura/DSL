@@ -67,7 +67,7 @@ module SimGen
         emitter.emit_line("void do#{instruction[:name].to_s.upcase}(CPU &cpu, const Instruction &insn) {")
         emitter.increase_indent
 
-        gen = SemaGen::CppGenerator.new(emitter, operand_map)
+        gen = CodeGen::CppGenerator.new(emitter, operand_map)
         instruction[:code][:tree].each do |node|
           gen.generate_statement(node)
         end

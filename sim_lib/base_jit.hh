@@ -1,8 +1,10 @@
 #ifndef INCLUDE_JIT_BASE_HH_INCLUDED
 #define INCLUDE_JIT_BASE_HH_INCLUDED
 
+// clang-format off
 #include "naive_interpreter.hh"
 #include "decoder.hh"
+// clang-format on
 
 #include <functional>
 #include <map>

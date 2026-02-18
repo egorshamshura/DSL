@@ -35,8 +35,8 @@ module SimGen
 
 namespace prot::memory {
 
-struct Memory {
-
+class Memory {
+public:
   Memory() = default;
   Memory(const Memory &) = delete;
   Memory &operator=(const Memory &) = delete;
