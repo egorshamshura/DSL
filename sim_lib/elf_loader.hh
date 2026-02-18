@@ -5,8 +5,10 @@
 #include <istream>
 #include <memory>
 
+// clang-format off
 #include "memory.hh"
 #include "isa.hh"
+// clang-format on
 
 // NOLINTNEXTLINE
 namespace ELFIO {

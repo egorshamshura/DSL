@@ -1,4 +1,4 @@
-require 'sema_gen/sema_gen'
+require 'code_gen/code_gen'
 require 'Utility/gen_emitter'
 require 'minitest/autorun'
 
@@ -22,7 +22,7 @@ class SemaTestsSimple < Minitest::Test
 
     expected_code = 'R[rd] = R[rs1] + R[rs2];'
     emitter = Utility::GenEmitter.new
-    generated_code = SemaGen.new(emitter, mapping)
+    generated_code = CodeGen.new(emitter, mapping)
     generated_code.generate_statement(operation)
 
     assert_equal(expected_code, emitter.to_s)
@@ -44,7 +44,7 @@ class SemaTestsSimple < Minitest::Test
 
     expected_code = 'R[rd] = 42;'
     emitter = Utility::GenEmitter.new
-    generated_code = SemaGen.new(emitter, mapping)
+    generated_code = CodeGen.new(emitter, mapping)
     generated_code.generate_statement(operation)
 
     assert_equal(expected_code, emitter.to_s)
@@ -63,7 +63,7 @@ class SemaTestsSimple < Minitest::Test
 
     expected_code = 'int32_t temp;'
     emitter = Utility::GenEmitter.new
-    generated_code = SemaGen.new(emitter, mapping)
+    generated_code = CodeGen.new(emitter, mapping)
     generated_code.generate_statement(operation)
 
     assert_equal(expected_code, emitter.to_s)
@@ -86,7 +86,7 @@ class SemaTestsSimple < Minitest::Test
 
     expected_code = 'R[rd] = (static_cast<int32_t>(R[rs]) << 16) >> 16;'
     emitter = Utility::GenEmitter.new
-    generated_code = SemaGen.new(emitter, mapping)
+    generated_code = CodeGen.new(emitter, mapping)
     generated_code.generate_statement(operation)
 
     assert_equal(expected_code, emitter.to_s)

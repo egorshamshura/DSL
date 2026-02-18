@@ -2,7 +2,7 @@ require 'Utility/helper_cpp'
 # frozen_string_literal: true
 
 # Semantics Generator: Converts IR to C++ code
-module SemaGen
+module CodeGen
   class CppGenerator
     attr_reader :emitter, :mapping
 

@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  formatting-check:
+    name: Formatting check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install dos2unix
+
+      - name: Check line breaks
+        run: |
+          ci-extra/check-lines.sh
+
+      - name: Run clang-format style check
+        uses: jidicula/clang-format-action@v4.14.0
+        with:
+          clang-format-version: '19'
+          check-path: '.'
+
+  build:
+    needs: formatting-check
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build-type:
+          - Release
+          - Debug
+    env:
+      CMAKE_PRESET: "Default-${{ matrix.build-type }}"
+    timeout-minutes: 40
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.8'
+          bundler-cache: true
+
+      - name: Build
+        run: ci-extra/build.sh "$CMAKE_PRESET"

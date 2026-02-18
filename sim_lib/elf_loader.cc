@@ -7,7 +7,6 @@
 namespace prot::elf_loader {
 using namespace prot::memory;
 
-
 ElfLoader::~ElfLoader() = default;
 
 void ElfLoader::validate() const {

@@ -3,13 +3,16 @@
 #include <filesystem>
 #include <iostream>
 
+#include "base_jit.hh"
 #include "elf_loader.hh"
 #include "hart.hh"
-#include "naive_interpreter.hh"
-#include "base_jit.hh"
 #include "memory.hh"
+#include "naive_interpreter.hh"
 
 int main(int argc, const char *argv[]) {
+  if (argc < 2) {
+    return EXIT_FAILURE;
+  }
 
   std::filesystem::path elfPath{argv[1]};
   constexpr prot::isa::Addr kDefaultStack = 0x7fffffff;
@@ -17,9 +20,11 @@ int main(int argc, const char *argv[]) {
   auto hart = [&] {
     prot::elf_loader::ElfLoader loader{elfPath};
 
-    std::unique_ptr<prot::engine::ExecEngine> engine = std::make_unique<prot::engine::CachedInterpreter>();
+    std::unique_ptr<prot::engine::ExecEngine> engine =
+        std::make_unique<prot::engine::CachedInterpreter>();
 
-    prot::hart::Hart hart{prot::memory::makePlain(4ULL << 30U), std::move(engine)};
+    prot::hart::Hart hart{prot::memory::makePlain(4ULL << 30U),
+                          std::move(engine)};
     hart.load(loader);
 
     return hart;
@@ -31,7 +36,8 @@ int main(int argc, const char *argv[]) {
   hart.run();
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> duration = end - start;
-  std::cout << "MIPS: " << hart.getIcount() / (duration.count() * 1000000) << std::endl;
+  std::cout << "MIPS: " << hart.getIcount() / (duration.count() * 1000000)
+            << std::endl;
 
   return EXIT_SUCCESS;
 }
