@@ -6,7 +6,6 @@ require 'sim_gen/Decoders/decoder'
 require 'sim_gen/ISA/isa'
 require 'sim_gen/ExecEngines/naive_interpreter'
 require 'sim_gen/ExecEngines/base_exec_engine'
-require 'sim_gen/MemoryModels/memory'
 require 'sim_gen/Hart/hart'
 require 'sim_gen/ExecEngines/llvm_jit'
 
@@ -23,7 +22,5 @@ File.write('naive_interpreter.cc', SimGen::NaiveInterpreter::TranslationUnit.gen
 File.write('decoder.hh', SimGen::Decoder::Header.generate_decoder(yaml_data))
 File.write('decoder.cc', SimGen::Decoder::TranslationUnit.generate_decoder(yaml_data))
 File.write('isa.hh', SimGen::ISA::Header.generate_isa_header(yaml_data))
-File.write('memory.hh', SimGen::Memory::Header.generate_memory(yaml_data))
-File.write('memory.cc', SimGen::Memory::TranslationUnit.generate_memory(yaml_data))
 File.write('hart.hh', SimGen::Hart::Header.generate_hart(yaml_data))
 File.write('hart.cc', SimGen::Hart::TranslationUnit.generate_hart(yaml_data))

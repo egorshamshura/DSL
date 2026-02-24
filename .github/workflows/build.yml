@@ -7,7 +7,7 @@ on:
 jobs:
   formatting-check:
     name: Formatting check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     
     steps:
       - name: Checkout repository
@@ -30,7 +30,7 @@ jobs:
   build:
     needs: formatting-check
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:

@@ -6,7 +6,6 @@ set(PROTEA_SIMGEN_OUTPUT_HEADERS
   naive_interpreter.hh
   decoder.hh
   isa.hh
-  memory.hh
   hart.hh
 )
 
@@ -14,7 +13,6 @@ set(PROTEA_SIMGEN_OUTPUT_SOURCES
   base_exec_engine.cc
   naive_interpreter.cc
   decoder.cc
-  memory.cc
   hart.cc
 )
 
@@ -35,7 +33,14 @@ add_custom_command(
 add_custom_target(${PROJECT_NAME} ALL DEPENDS ${PROTEA_SIMGEN_OUTPUT_FILES})
 add_dependencies(${PROJECT_NAME} protea_irgen)
 
-add_executable(sim ${PROTEA_SIMGEN_OUTPUT_SOURCES} ${protea_simlib_SOURCE_DIR}/elf_loader.cc ${protea_simlib_SOURCE_DIR}/base_jit.cc ${protea_simlib_SOURCE_DIR}/sim.cc)
+add_executable(sim ${PROTEA_SIMGEN_OUTPUT_SOURCES} 
+  ${protea_simlib_SOURCE_DIR}/elf_loader.cc 
+  ${protea_simlib_SOURCE_DIR}/base_jit.cc 
+  ${protea_simlib_SOURCE_DIR}/sim.cc 
+  ${protea_simlib_SOURCE_DIR}/jit_factory.cc
+  ${protea_simlib_SOURCE_DIR}/memory.cc)
+  
 target_include_directories(sim PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${protea_simlib_SOURCE_DIR})
-target_link_libraries(sim elfio)
-set_property(TARGET sim PROPERTY CXX_STANDARD 23)
+target_link_libraries(sim elfio CLI11 fmt)
+target_compile_features(sim PRIVATE cxx_std_23)
+install(TARGETS sim)

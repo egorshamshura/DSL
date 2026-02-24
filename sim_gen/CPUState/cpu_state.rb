@@ -69,7 +69,7 @@ module SimGen
           regfile_size = regfile[:regs].size - regfile[:regs].count { |reg| reg[:attrs].include? :pc }
           emitter.emit_line("// Register file: #{regfile[:name]}")
           regsize = regfile[:regs][0][:size]
-          array_str = "std::array<#{Utility::HelperCpp.gen_type(regsize)}, #{regfile_size}> m_#{regfile[:name]};"
+          array_str = "std::array<#{Utility::HelperCpp.gen_type(regsize)}, #{regfile_size}> m_#{regfile[:name]}{};"
           emitter.emit_line(array_str)
           emitter.emit_blank_line
         end
