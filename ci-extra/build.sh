@@ -5,4 +5,4 @@ cmake -S . \
   --preset "${PRESET_NAME}" -G Ninja
 
 # Build
-cmake --build "build/${PRESET_NAME}" -j
+cmake --build --preset ${PRESET_NAME} --target install --parallel 12

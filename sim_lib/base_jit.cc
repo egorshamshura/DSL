@@ -37,7 +37,7 @@ void JitEngine::step(CPU &cpu) {
         if (isa::isTerminator(inst->m_opc)) {
           break;
         }
-        curAddr += getILen(inst->m_opc);
+        curAddr += sizeof(isa::Word);
       }
     } else if (bbIt->second.num_exec >= kExecThreshold) [[likely]] {
       auto code = translate(bbIt->second);

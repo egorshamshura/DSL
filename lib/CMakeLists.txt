@@ -6,3 +6,4 @@ add_custom_command(
   COMMENT "Running ${PROJECT_NAME}"
 )
 add_custom_target(${PROJECT_NAME} DEPENDS IR.yaml)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/IR.yaml DESTINATION share/)
