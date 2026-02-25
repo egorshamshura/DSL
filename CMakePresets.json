@@ -28,5 +28,17 @@
         "CMAKE_BUILD_TYPE": "Debug"
       }
     }
+  ],
+  "buildPresets": [
+    {
+      "name": "Default-Release",
+      "description": "Build Release configuration",
+      "configurePreset": "Default-Release"
+    },
+    {
+      "name": "Default-Debug",
+      "description": "Build Debug configuration",
+      "configurePreset": "Default-Debug"
+    }
   ]
 }
