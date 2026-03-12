@@ -12,20 +12,23 @@
 
 // NOLINTNEXTLINE
 namespace ELFIO {
+
 // forward decl
 class elfio;
+
 } // namespace ELFIO
 
 namespace prot::elf_loader {
+
 class ElfLoader {
 public:
-  explicit ElfLoader(std::istream &stream);
-  explicit ElfLoader(const std::filesystem::path &filename);
+  explicit ElfLoader(std::istream& stream);
+  explicit ElfLoader(const std::filesystem::path& filename);
 
-  ElfLoader(ElfLoader &&elf) = default;
-  ElfLoader &operator=(ElfLoader &&elf) = default;
+  ElfLoader(ElfLoader&& elf) = default;
+  ElfLoader& operator=(ElfLoader&& elf) = default;
 
-  void loadMemory(memory::Memory &mem) const;
+  void loadMemory(memory::Memory& mem) const;
   [[nodiscard]] isa::Addr getEntryPoint() const;
 
   ~ElfLoader();
@@ -35,6 +38,7 @@ private:
 
   std::unique_ptr<ELFIO::elfio> m_elf;
 };
+
 } // namespace prot::elf_loader
 
 #endif // PROT_ELF_LOADER_HH_INCLUDED
