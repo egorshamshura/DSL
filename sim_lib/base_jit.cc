@@ -14,7 +14,7 @@ using namespace prot::decoder;
 
 void JitEngine::step(CPU& cpu) {
   while (!cpu.m_finished) [[likely]] {
-    // colllect bb
+    // collect bb
     const auto pc = cpu.getPC();
     auto found = m_tbCache.lookup(pc);
     if (found != nullptr) [[likely]] {
@@ -31,7 +31,7 @@ void JitEngine::step(CPU& cpu) {
         auto bytes = cpu.m_memory->read<isa::Word>(curAddr);
         auto inst = decode(bytes);
         if (!inst.has_value()) {
-          throw std::runtime_error{"Cannot decode bytes"};
+          throw std::runtime_error{"Cannot decode bytes: " + std::to_string(bytes)};
         }
 
         bb.insns.push_back(*inst);
