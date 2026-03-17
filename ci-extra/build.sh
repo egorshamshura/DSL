@@ -2,7 +2,7 @@ PRESET_NAME=$1
 
 # Configure CMake
 cmake -S . \
-  --preset "${PRESET_NAME}" -G Ninja
+  --preset "${PRESET_NAME}" -DPROTEA_BUILD_TESTS=true -DQEMU_PATH=qemu-riscv32 -G Ninja
 
 # Build
-cmake --build --preset ${PRESET_NAME} --target install --parallel 12
+cmake --build --preset ${PRESET_NAME} --target all --parallel 12
