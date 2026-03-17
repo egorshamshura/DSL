@@ -1,16 +1,17 @@
-#include <CLI/CLI.hpp>
-#include <chrono>
-#include <filesystem>
-#include <fmt/core.h>
-#include <fmt/ostream.h>
-#include <memory>
-
 #include "base_jit.hh"
 #include "elf_loader.hh"
 #include "hart.hh"
 #include "jit_factory.hh"
 #include "memory.hh"
 #include "naive_interpreter.hh"
+
+#include <CLI/CLI.hpp>
+#include <fmt/core.h>
+#include <fmt/ostream.h>
+
+#include <chrono>
+#include <filesystem>
+#include <memory>
 
 int main(int argc, const char *argv[]) try {
   std::filesystem::path elfPath;
