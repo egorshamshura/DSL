@@ -28,6 +28,7 @@ for filename in os.listdir(directory):
             exit_code = int(match.group(1))
             if exit_code != 0:
                 print(f"Error: {program} reported exit code {exit_code} for file {filepath}")
+                print(f"stdout: {result.stdout}")
                 has_error = True
         else:
             print(f"Error: Could not find exit code in output for file {filepath}")
