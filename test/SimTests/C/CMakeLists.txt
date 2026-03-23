@@ -13,6 +13,7 @@ if(PROTEA_BUILD_TESTS)
   endif()
 
   set(TESTS_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/CImpl)
+  set(OUTPUT_TESTS_DIR ${CMAKE_CURRENT_BINARY_DIR}/CImpl/bin)
   set(GENERATED_SIM_BIN_PATH ${protea_simgen_BINARY_DIR}/sim)
 
   ExternalProject_Add(
@@ -26,8 +27,12 @@ if(PROTEA_BUILD_TESTS)
 
   set(RunTests ${tests-common_SOURCE_DIR}/RunTests.py)
 
-  add_custom_target(${PROJECT_NAME}
-    COMMAND ${Python3_EXECUTABLE} ${RunTests} ${GENERATED_SIM_BIN_PATH} ${TESTS_BINARY_DIR}/bin/
-    COMMENT "Running ${PROJECT_NAME}")
-  add_dependencies(${PROJECT_NAME} sim c-simtestsimpl)
+  set(DISCOVER_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/discover_generated_tests.cmake")
+  configure_file(
+    "${CMAKE_SOURCE_DIR}/cmake/discover_generated_tests.cmake.in"
+    "${DISCOVER_SCRIPT}"
+    @ONLY
+  )
+
+  set_property(DIRECTORY APPEND PROPERTY TEST_INCLUDE_FILES "${DISCOVER_SCRIPT}")
 endif()

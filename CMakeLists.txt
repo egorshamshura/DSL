@@ -24,6 +24,10 @@ include(cmake/CompilerOptions.cmake)
 include(cmake/CPM.cmake)
 include(cmake/dependencies.cmake)
 
+if(PROTEA_BUILD_TESTS)
+  enable_testing()
+endif()
+
 add_subdirectory(lib)
 add_subdirectory(sim_lib)
 add_subdirectory(sim_gen)

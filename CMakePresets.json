@@ -8,13 +8,11 @@
   "configurePresets": [
     {
       "name": "Base",
-      "description": "General preset that applies to all configurations",
       "hidden": true,
       "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
       "name": "Default-Release",
-      "description": "Release build",
       "inherits": "Base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
@@ -22,7 +20,6 @@
     },
     {
       "name": "Default-Debug",
-      "description": "Debug build",
       "inherits": "Base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
@@ -32,13 +29,33 @@
   "buildPresets": [
     {
       "name": "Default-Release",
-      "description": "Build Release configuration",
       "configurePreset": "Default-Release"
     },
     {
       "name": "Default-Debug",
-      "description": "Build Debug configuration",
       "configurePreset": "Default-Debug"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "Default-Release",
+      "configurePreset": "Default-Release",
+      "execution": {
+        "jobs": 16
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "Default-Debug",
+      "configurePreset": "Default-Debug",
+      "execution": {
+        "jobs": 16
+      },
+      "output": {
+        "outputOnFailure": true
+      }
     }
   ]
 }
