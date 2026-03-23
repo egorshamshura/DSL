@@ -18,12 +18,14 @@ int main(int argc, const char *argv[]) try {
   constexpr prot::isa::Addr kDefaultStack = 0x7fffffff;
   prot::isa::Addr stackTop = kDefaultStack;
   std::string jitBackend;
+  bool propagateExit = false;
 
   CLI::App app{"Generated simulator with JIT support"};
 
   app.add_option("elf", elfPath, "Path to executable ELF file")
       ->required()
       ->check(CLI::ExistingFile);
+  app.add_flag("--propagate-exit", propagateExit, "Propagate exit code from guest to host");
 
   app.add_option("--jit", jitBackend, "Use JIT with specified backend")
       ->check(CLI::IsMember(prot::engine::JitFactory::backends()));
@@ -57,7 +59,7 @@ int main(int argc, const char *argv[]) try {
   fmt::println("MIPS: {:.2f}",
                hart.getIcount() / (duration.count() * 1'000'000));
 
-  return EXIT_SUCCESS;
+  return propagateExit ? hart.getExitCode() : EXIT_SUCCESS;
 } catch (const std::exception &ex) {
   fmt::println(std::cerr, "Caught exception of type {}: {}", typeid(ex).name(),
                ex.what());

@@ -124,6 +124,7 @@ module SimGen
         emitter.emit_line('void doExit(isa::Word code) {')
         emitter.increase_indent
         emitter.emit_line('m_finished = true;')
+        emitter.emit_line('m_code = code;')
         emitter.emit_line("fmt::println(\"Exiting with code {}...\", code);")
         emitter.decrease_indent
         emitter.emit_line('}')
@@ -205,6 +206,9 @@ public:
 
   // Finished flag
   bool m_finished{false};
+
+  // Exit code
+  isa::Word m_code{0};
 
   explicit CPU(Memory *mem) : m_memory(mem) {}
 
