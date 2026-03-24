@@ -6,7 +6,6 @@ set(TARGET_NAME RISCV)
 
 option(PROTEA_BUILD_TESTS
        "Enable tests build (requires riscv gnu toolchain)" OFF)
-enable_testing()
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set_property(CACHE CMAKE_INSTALL_PREFIX
@@ -23,6 +22,7 @@ include(cmake/QEMU.cmake)
 include(cmake/CompilerOptions.cmake)
 include(cmake/CPM.cmake)
 include(cmake/dependencies.cmake)
+include(cmake/CompilerConfig.cmake)
 
 if(PROTEA_BUILD_TESTS)
   enable_testing()
