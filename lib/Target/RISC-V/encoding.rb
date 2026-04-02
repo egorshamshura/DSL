@@ -1,32 +1,36 @@
-require_relative "../../ADL/base"
+require "ADL/base"
 
 module SimInfra
+    def sXLEN 
+        return :"s#{XLEN}".to_sym
+    end
+
     def u_imm(imm)
-        return imm, :s32, "let :#{imm}, [:op], :s32, f_#{imm}.s << 12"
+        return imm, sXLEN, "let :#{imm}, [:op], :#{sXLEN}, f_#{imm}.s << 12"
     end
 
     def i_imm(imm)
-        return imm, :s32, "let :#{imm}, [:op], :s32, f_#{imm}.s32"
+        return imm, sXLEN, "let :#{imm}, [:op], :#{sXLEN}, f_#{imm}.#{sXLEN.to_s}"
     end
 
     def is_imm(imm)
-        return imm, :s32, "let :#{imm}, [:op], :s32, f_imm4_0"
+        return imm, sXLEN, "let :#{imm}, [:op], :#{sXLEN}, f_imm4_0"
     end
 
     def j_imm(imm)
-        return imm, :s32, "let :#{imm}, [:op], :s32, (f_imm20.b21 << 20 | f_imm19_12.b21 << 12 | f_imm11.b21 << 11 | f_imm10_1.b21 << 1).s32"
+        return imm, sXLEN, "let :#{imm}, [:op], :#{sXLEN}, (f_imm20.b21 << 20 | f_imm19_12.b21 << 12 | f_imm11.b21 << 11 | f_imm10_1.b21 << 1).#{sXLEN.to_s}"
     end
 
     def b_imm(imm)
-        return imm, :s32, "let :#{imm}, [:op], :s32, (f_imm12.b13 << 12 | f_imm11.b13 << 11 | f_imm10_5.b13 << 5 | f_imm4_1.b13 << 1).s32"
+        return imm, sXLEN, "let :#{imm}, [:op], :#{sXLEN}, (f_imm12.b13 << 12 | f_imm11.b13 << 11 | f_imm10_5.b13 << 5 | f_imm4_1.b13 << 1).#{sXLEN.to_s}"
     end
 
     def s_imm(imm)
-        return imm, :s32, "let :#{imm}, [:op], :s32, (f_imm11_5.b12 << 5 | f_imm4_0.b12).s32"
+        return imm, sXLEN, "let :#{imm}, [:op], :#{sXLEN}, (f_imm11_5.b12 << 5 | f_imm4_0.b12).#{sXLEN.to_s}"
     end
 
     def xreg(name)
-        return name, :r32, "let :#{name}, :XRegs, [:op], :r32, f_#{name}"
+        return name, sXLEN, "let :#{name}, :XRegs, [:op], :#{sXLEN}, f_#{name}"
     end
 end
 

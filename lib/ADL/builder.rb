@@ -141,6 +141,8 @@ module SimInfra
     end
 
     class RegisterFileInfo
+        include SimInfra
+
         attr_accessor :name, :regs
         def initialize(name)
             @name = name; @regs = []
@@ -203,8 +205,16 @@ end
 # * generate precise fields
 module SimInfra
     class RegisterFileBuilder
-        def r32(sym, *args)
-            @info.regs << Register.new(sym, 32, args[0] ? [args[0]] : [])
+        include SimInfra
+
+        def method_missing(name, *args)
+            m = /\Ar(\d+)\z/.match(name.to_s)
+            if m
+                @info.regs << Register.new(args[0], name.to_s.sub("r", "").to_i, args[1] ? [args[1]] : [])
+                instance_eval "def #{name}(sym, *args); @info.regs << Register.new(sym, #{name.to_s.sub("r", "").to_sym}, args[0] ? [args[0]] : []) end"
+            else
+                super
+            end
         end
 
         def zero()
