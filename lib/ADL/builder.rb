@@ -196,6 +196,7 @@ class RegisterFileBuilder
 
   def zero = :zero
   def pc = :pc
+  def sp = :sp
 end
 
     def RegisterFile(name, &block)
