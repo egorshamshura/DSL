@@ -85,7 +85,6 @@ if __FILE__ == $0
   log_files = Dir.glob(File.join(log_dir, '*')).select { |f| File.file?(f) }
 
   jobs = log_files.filter_map do |log_path|
-    puts(log_path)
     log_basename = File.basename(log_path)
     match = log_basename.match(/^(.*)_(\d+)\.init\.log$/)
 
