@@ -90,8 +90,8 @@ if __FILE__ == $0
 
     snippet = match[1]
     index = match[2].to_i
-
     snippet_path = snippet_map[snippet]
+    next unless snippet_path
 
     init_yaml_file = File.join(init_yaml_dir, "#{snippet}_#{index}.init.yaml")
 
